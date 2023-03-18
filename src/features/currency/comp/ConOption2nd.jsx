@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useFlags } from "../../common/hooks/useFlags";
 
 const ConOption2nd = ({
   currencyList,
@@ -21,7 +22,7 @@ const ConOption2nd = ({
   }, [selected]);
 
   return (
-    <div className="drop-shadow-lg z-auto w-72">
+    <div className="shadow-lg w-72">
       <Listbox
         value={selected}
         // onFocusIn={console.log('focus In')}
@@ -43,10 +44,15 @@ const ConOption2nd = ({
         // }}
         onChange={setSelected}
       >
-        <div className="relative  mt-1">
+        <div className="relative z-0  mt-1">
           <Listbox.Button
-            className="relative  w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+            className="relative w-full cursor-default flex gap-x-3 items-center rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
           >
+            <img
+            onError={(e)=>   { 
+              e.target.src = 'https://www.shiplocation.com/Flags%20-%20normal/uu.png' 
+              e.onerror = null }  }
+             className="object-cover rounded-full w-10 h-10 border border-gray-500  " src={useFlags(selected)} alt="currency" />
             <span className="block truncate font-semibold text-rose-500">
               {selected + " - " + symbols[selected]}
             </span>
@@ -63,15 +69,15 @@ const ConOption2nd = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute
+            <Listbox.Options className="absolute z-20
               mt-1 max-h-60 w-full overflow-auto rounded-md 
-               scroll-smooth bg-rose-800/60 backdrop-blur-md  py-1 text-base shadow-lg ring-1
+               scroll-smooth bg-rose-800  py-1 text-base shadow-lg ring-1
              ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {currencyList.map((currency, currencyIdx) => (
                 <Listbox.Option
                   key={currencyIdx}
                   className={({ active }) =>
-                    `relative  cursor-default select-none py-2 pl-6 pr-4 ${
+                    `relative cursor-default select-none py-2 pl-6 pr-4 ${
                       active ? " bg-amber-100 text-rose-900" : "text-gray-100"
                     }`
                   }
@@ -87,7 +93,7 @@ const ConOption2nd = ({
                         {currency + " - " + symbols[currency]}
                       </span>
                       {selected ? (
-                        <span className="absolute  inset-y-0 left-0 flex items-center pl-1 text-amber-600">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-1 text-amber-600">
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}

@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        monte : ['Montserrat', 'sans-serif']
+        monte : ['Montserrat', 'sans-serif'],
+        cali : ['Nothing You Could Do', 'cursive']
       }
     },
   },

@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useCurrency } from "../common/hooks/useCurrency";
 import ConHeader from "./comp/ConHeader";
 import ConOption1st from "./comp/ConOption1st";
 import ConOption2nd from "./comp/ConOption2nd";
-
+import query from '../common/assets/query.svg'
+import axios from '../common/assets/axios.png'
+import tailwind from '../common/assets/Tailwind_CSS_Logo.png'
 const Converter = () => {
   const [inputError, setInputError] = useState("");
   const [inputValidated, setInputValidated] = useState(false);
@@ -42,8 +44,9 @@ const Converter = () => {
 
   return (
     <div className="text-white  ">
+      
       <ConHeader />
-      <div className="bg-[#d2d2d2] px-6 py-4 rounded-lg my-8 mx-4 ">
+      <div className="bg-[#f0f0f0] px-6 py-4 rounded-lg my-8 mx-4 ">
         <div className="flex md:flex-row  flex-col justify-center items-center gap-y-4 gap-x-8 ">
     
           {currencyList.length > 0 && (
@@ -61,7 +64,7 @@ const Converter = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-8 h-8"
+              className="w-8 h-8"
             >
               <path
                 fillRule="evenodd"
@@ -87,13 +90,14 @@ const Converter = () => {
               Amount{" "}
             </label>
             <input
-              className="drop-shadow-lg   w-32 md:w-72 rounded-lg placeholder:text-rose-600  py-2 pl-3 pr-10 text-left shadow-md focus:outline-none  focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-1 focus-visible:ring-offset-rose-500 sm:text-sm text-rose-900"
+              className=" shadow-xl  outline outline-1 outline-gray-400/60 w-32 md:w-72 rounded-lg placeholder:text-rose-600  py-2 pl-3 pr-10 text-left  focus:outline-none  focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-1 focus-visible:ring-offset-rose-500 sm:text-sm text-rose-900"
               type="text"
               placeholder="Amount"
               value={amount }
               onChange={(e) => setAmount(e.target.value)}
               onBlur={(e) => validateInput(e.target.value)}
             />
+
             {!inputValidated && amount !== 22 && (
               <p className="text-red-800 animate-pulse  text-sm font-semibold " >Please Enter Value Amount to converted..</p>
             )}
@@ -102,7 +106,8 @@ const Converter = () => {
             <p className="self-end text-rose-900 text-lg font-semibold pl-2">
               {/^[0-9]+$/.test(amount) ? amount + " " + currencyOne : ""}
             </p>
-            <p className="self-end text-rose-900  font-bold text-2xl ">
+              <div className="p-2 border border-rose-300   bg-rose-200 w-fit self-end rounded-xl ">
+                <p className="self-end text-rose-900   font-bold text-2xl ">
               {convertedAmount === "NaN" ? "" : convertedAmount} {currencyTwo}
               {symbolsData?.data?.length > 0 && (
                 <span className="font-semibold">
@@ -111,7 +116,9 @@ const Converter = () => {
                 </span>
               )}
             </p>
-            <p className="hidden md:inline-flex text-end text-rose-600  text-sm md:font-normal ">
+              </div>
+            
+            <p className="hidden md:inline-flex text-end text-violet-600  text-sm md:font-normal ">
               {" "}
               Market rates collected at - {date} {time}{" "}
             </p>
@@ -122,6 +129,18 @@ const Converter = () => {
               {" "}
               Market rates collected at - {date} {time}{" "}
             </p>
+      </div>
+
+      {/* Footer */}
+      <div className="flex justify-center items-center   ">
+        <p className="font-cali flex-wrap whitespace-nowrap self-center  flex items-center justify-center font-bold text-lg ">
+          Made with 💓 from <span className="text-amber-400">&nbsp; Garry &nbsp;</span>  using  &nbsp;
+          <span> <img src={query}  className='object-cover h-7 w-7' alt="query" /></span> &nbsp; React Query  ,
+          &nbsp; <span> <img src={axios}  className='object-cover h-7 w-7' alt="query" /> </span>
+          &nbsp; Axios and &nbsp;
+           <span> <img src={tailwind} className='object-cover h-7 w-7'  alt="query" /> </span>
+           &nbsp; Tailwind Css
+        </p>
       </div>
     </div>
   );

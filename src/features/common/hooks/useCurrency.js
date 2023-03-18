@@ -38,10 +38,10 @@ export const useCurrency = () => {
   const currencyList = symbolsData.data ? Object.keys(symbolsData.data) : {};
   // console.log("🚀 ~ file: useCurrency.js:37 ~ useCurrency ~ currencyList", currencyList)
 
-  console.log(
-    "🚀 ~ file: useCurrency.js:28 ~ useCurrency ~ convertedAmount",
-    convertedAmount
-  );
+  // console.log(
+  //   "🚀 ~ file: useCurrency.js:28 ~ useCurrency ~ convertedAmount",
+  //   convertedAmount
+  // );
 
   return {
     amount,

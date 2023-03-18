@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-
+import { useFlags } from "../../common/hooks/useFlags";
 const ConOption1st = ({
   currencyList,
   onCurrencyChange,
@@ -9,7 +9,6 @@ const ConOption1st = ({
   symbols,
 }) => {
   const [selected, setSelected] = useState(presentCurrency);
-
   useEffect(() => {
     const timeOut = setTimeout(() => {
       onCurrencyChange(selected);
@@ -21,7 +20,7 @@ const ConOption1st = ({
   }, [selected]);
 
   return (
-    <div className=" drop-shadow-lg   w-72">
+    <div className=" z-10 shadow-lg w-72">
       <Listbox
         value={selected}
         // onFocusIn={console.log('focus In')}
@@ -32,9 +31,9 @@ const ConOption1st = ({
         //         e.target.parentNode.parentNode.parentNode.parentNode.id
         //       )
         //     : setIdOfOptionOpened("");
-           
+
         // }}
-        
+
         // onBlurCapture={(e) => {
         //   idOfOptionOpened === "firstCurrency" && e.type !== "blur"
         //     ? null
@@ -42,11 +41,15 @@ const ConOption1st = ({
         //   console.log(e.type);
         // }}
         onChange={setSelected}
-      >
-        <div className="relative z-30 mt-1">
-          <Listbox.Button
-            className="relative z-10 w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-          >
+      > 
+      {/* //https://www.shiplocation.com/Flags%20-%20normal/uu.png */}
+        <div className="relative z-10  mt-1">
+          <Listbox.Button className="relative z-10 flex items-center gap-x-3 w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <img  
+            onError={(e)=>   { 
+              e.target.src = 'https://www.shiplocation.com/Flags%20-%20normal/uu.png' 
+              e.onerror = null }  }
+              className="object-cover rounded-full w-10 h-10 border border-gray-500 " src={ useFlags(selected)} alt="currency" />
             <span className="block truncate font-semibold text-rose-500">
               {selected + " - " + symbols[selected]}
             </span>
@@ -63,15 +66,17 @@ const ConOption1st = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute  z-20
+            <Listbox.Options
+              className="absolute z-20
               mt-1 max-h-60 w-full overflow-auto rounded-md 
-               scroll-smooth bg-rose-800/60 backdrop-blur-md py-1 text-base shadow-lg ring-1
-             ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+               scroll-smooth bg-rose-800  py-1 text-base shadow-lg ring-1
+             ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            >
               {currencyList.map((currency, currencyIdx) => (
                 <Listbox.Option
                   key={currencyIdx}
                   className={({ active }) =>
-                    `relative z-30 cursor-default select-none py-2 pl-6 pr-4 ${
+                    `relative z-auto cursor-default select-none py-2 pl-6 pr-4 ${
                       active ? " bg-amber-100 text-rose-900" : "text-gray-100"
                     }`
                   }
